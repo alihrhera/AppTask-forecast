@@ -13,5 +13,5 @@ interface CitiesDao {
 
 
     @Query("SELECT * FROM cities")
-    suspend fun getAllUsers(): List<City>
+    suspend fun getAllCities(): List<City>
 }
