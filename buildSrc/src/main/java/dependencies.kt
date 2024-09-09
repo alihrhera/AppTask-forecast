@@ -1,4 +1,6 @@
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.add
+import org.gradle.kotlin.dsl.exclude
 
 
 object Versions {
@@ -82,6 +84,11 @@ fun DependencyHandler.sizeDependencies() {
 
 
 fun DependencyHandler.retrofitDependencies() {
+    add("implementation", Libs.Retrofit.RETROFIT2) {
+        exclude(group = "android.net.http")
+        exclude(module = "okhttp")
+        exclude(group = "org.apache.httpcomponents", module = "httpclient")
+    }
     add("implementation", Libs.Retrofit.CONVERTER_GSON)
     add("implementation", Libs.Retrofit.LOGGING_INTERCEPTOR)
     add("implementation", Libs.Retrofit.GSON)

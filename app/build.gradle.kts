@@ -63,4 +63,5 @@ dependencies {
 
     navigationDependencies()
 
+    retrofitDependencies()
 }
