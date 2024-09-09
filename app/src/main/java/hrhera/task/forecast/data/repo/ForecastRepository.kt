@@ -1,5 +1,6 @@
 package hrhera.task.forecast.data.repo
 
+import android.util.Log
 import hrhera.task.forecast.core.BaseRepository
 import hrhera.task.forecast.core.BaseResponse
 import hrhera.task.forecast.data.api.ForecastApiService
@@ -35,6 +36,7 @@ class ForecastRepository
         forecastResponse.value = BaseResponse.Loading(true)
 
         buildTask { api.getForecastData(lon, lat) }.collectLatest { response ->
+            Log.w("TAG", "getForecastData: $response", )
             when (response) {
                 is BaseResponse.Body -> {
                     forecastDao.saveForecasts(response.data.forecasts.map { it.toForecastDto(response.data.city, lat, lon) })

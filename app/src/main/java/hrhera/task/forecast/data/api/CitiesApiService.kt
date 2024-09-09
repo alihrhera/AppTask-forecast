@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface CitiesApiService {
     @GET("cities.json")
-    fun getCities(): CitiesResponse
+    suspend fun getCities(): CitiesResponse
 }

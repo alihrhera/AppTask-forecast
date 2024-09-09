@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AppTask-Forecast</string>
+    <string name="hint_city">Select city</string>
 </resources>
