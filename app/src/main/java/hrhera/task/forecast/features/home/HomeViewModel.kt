@@ -1,5 +1,6 @@
 package hrhera.task.forecast.features.home
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -117,7 +118,6 @@ class HomeViewModel @Inject constructor(
         getForecastUseCase.response.responseCollect(onError = { errorMessageValue ->
             errorMessage.postValue(errorMessageValue)
             errorMessageVisibility.postValue(true)
-
         }, onSuccess = { response ->
             localDataWarningVisibility.postValue(response.messageTxt.isNullOrBlank().not())
         })

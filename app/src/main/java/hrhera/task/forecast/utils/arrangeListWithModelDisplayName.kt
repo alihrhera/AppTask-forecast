@@ -1,7 +1,7 @@
 package appssquare.projects.HealloCare.utils.ext.arrayadapter
 
 import android.widget.AutoCompleteTextView
-import com.window.wndo.utils.arrayadapter.CustomArrayAdapter
+import hrhera.task.forecast.utils.CustomArrayAdapter
 import com.window.wndo.utils.arrayadapter.ModelDisplayName
 
 

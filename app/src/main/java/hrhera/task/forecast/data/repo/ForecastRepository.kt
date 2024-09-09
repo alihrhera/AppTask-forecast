@@ -36,7 +36,6 @@ class ForecastRepository
         forecastResponse.value = BaseResponse.Loading(true)
 
         buildTask { api.getForecastData(lon, lat) }.collectLatest { response ->
-            Log.w("TAG", "getForecastData: $response", )
             when (response) {
                 is BaseResponse.Body -> {
                     forecastDao.saveForecasts(response.data.forecasts.map { it.toForecastDto(response.data.city, lat, lon) })

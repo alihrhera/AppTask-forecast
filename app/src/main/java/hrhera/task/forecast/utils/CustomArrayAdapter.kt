@@ -1,4 +1,4 @@
-package com.window.wndo.utils.arrayadapter
+package hrhera.task.forecast.utils
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
-import hrhera.task.forecast.R
+import com.window.wndo.utils.arrayadapter.ModelDisplayName
 
 class CustomArrayAdapter(
     context: Context,
