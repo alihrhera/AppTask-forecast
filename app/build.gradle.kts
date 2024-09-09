@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "hrhera.task.forecast"
-    compileSdk = 34
+    namespace = AppConfiguration.NAMESPACE
+    compileSdk = AppConfiguration.COMPILE_SDK
 
     defaultConfig {
-        applicationId = "hrhera.task.forecast"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = AppConfiguration.APPLICATION_ID
+        minSdk = AppConfiguration.MIN_SDK
+        targetSdk = AppConfiguration.TARGET_SDK
+        versionCode = AppConfiguration.VERSION_CODE
+        versionName = AppConfiguration.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,6 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -45,4 +49,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
+
 }
