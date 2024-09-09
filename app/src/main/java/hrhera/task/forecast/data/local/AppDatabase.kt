@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import hrhera.task.forecast.domain.cities.City
 import hrhera.task.forecast.domain.wether.Forecast
 
@@ -16,6 +17,7 @@ import hrhera.task.forecast.domain.wether.Forecast
     version = 1,
     exportSchema = false
 )
+@TypeConverters(ObjectsMapper::class) // Add converters
 abstract class AppDatabase : RoomDatabase() {
 
     /**
