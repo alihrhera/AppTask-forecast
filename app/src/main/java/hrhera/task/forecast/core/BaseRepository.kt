@@ -1,20 +1,12 @@
-package hrhera.task.forecast.data.repo
+package hrhera.task.forecast.core
 
 import hrhera.task.forecast.utils.NetworkConstants.BAD_INTERNET
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import retrofit2.Response
 import java.net.SocketTimeoutException
 
 abstract class BaseRepository() {

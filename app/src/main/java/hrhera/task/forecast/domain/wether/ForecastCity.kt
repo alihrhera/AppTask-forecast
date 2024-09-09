@@ -1,6 +1,6 @@
 package hrhera.task.forecast.domain.wether
 
-data class City(
+data class ForecastCity(
     val coord: Coord,
     val country: String,
     val id: Int,

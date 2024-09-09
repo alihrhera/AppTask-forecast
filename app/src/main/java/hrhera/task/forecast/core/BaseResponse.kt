@@ -1,4 +1,4 @@
-package hrhera.task.forecast.data.repo
+package hrhera.task.forecast.core
 
 import androidx.annotation.Keep
 import okhttp3.Headers

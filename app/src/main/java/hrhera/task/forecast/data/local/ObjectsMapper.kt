@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import hrhera.task.forecast.domain.wether.Clouds
+import hrhera.task.forecast.domain.wether.Coord
 import hrhera.task.forecast.domain.wether.Main
 import hrhera.task.forecast.domain.wether.Sys
 import hrhera.task.forecast.domain.wether.Weather
@@ -60,5 +61,14 @@ class ObjectsMapper {
     @TypeConverter
     fun toWind(windString: String?): Wind? {
         return Gson().fromJson(windString, Wind::class.java)
+    }
+    @TypeConverter
+    fun fromCoord(coord: Coord?): String? {
+        return Gson().toJson(coord)
+    }
+
+    @TypeConverter
+    fun toCoord(coordString: String?): Coord? {
+        return Gson().fromJson(coordString, Coord::class.java)
     }
 }

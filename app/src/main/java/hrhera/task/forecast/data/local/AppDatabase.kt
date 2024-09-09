@@ -6,14 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import hrhera.task.forecast.domain.cities.City
-import hrhera.task.forecast.domain.wether.Forecast
+import hrhera.task.forecast.domain.wether.ForecastDTO
 
 /**
  * Class that provides access to the database for storing the forecast data.
  * It is using a singleton pattern to ensure that there is only one instance of the database.
  */
 @Database(
-    entities = [City::class, Forecast::class],
+    entities = [City::class, ForecastDTO::class],
     version = 1,
     exportSchema = false
 )

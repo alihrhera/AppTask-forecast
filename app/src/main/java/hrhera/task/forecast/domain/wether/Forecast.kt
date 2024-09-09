@@ -4,10 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "forecasts")
 data class Forecast(
     val clouds: Clouds,
-    @PrimaryKey val dt: Int,
+    @PrimaryKey val dt: Long,
     @SerializedName("dt_txt")
     val text: String,
     val main: Main,
