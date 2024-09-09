@@ -61,5 +61,6 @@ dependencies {
 
     lifecycleDependencies()
 
+    navigationDependencies()
 
 }
