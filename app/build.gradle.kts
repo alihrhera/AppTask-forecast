@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 
 
 }
@@ -55,6 +56,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     roomDependencies()
+
+    hiltDependencies()
 
 
 }

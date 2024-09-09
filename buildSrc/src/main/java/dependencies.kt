@@ -47,9 +47,15 @@ fun DependencyHandler.roomDependencies() {
 fun DependencyHandler.hiltDependencies() {
     add("implementation", Libs.Hilt.HILT_ANDROID)
     add("implementation", Libs.Hilt.HILT_WORKER)
+
+
     add("kapt", Libs.Hilt.KAPT_HILT_DAGGER_COMPILER)
     add("kapt", Libs.Hilt.KAPT_HILT_ANDROID_COMPILER)
     add("kapt", Libs.Hilt.KAPT_HILT_COMPILER)
+
+    // to fix Targeting S+ (version 31 and above) requires that one of FLAG_IMMUTABLE or FLAG_MUTABLE be specified when creating a PendingIntent.
+    add("implementation", Libs.RUNTIME_WORKER_KTX)
+    add("implementation", Libs.RUNTIME_WORKER)
 }
 
 

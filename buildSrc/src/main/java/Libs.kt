@@ -6,7 +6,6 @@ object Libs {
     const val RUNTIME_WORKER_KTX = "androidx.work:work-runtime-ktx:${Versions.RUNTIME_WORKER_KTX}"
     const val RUNTIME_WORKER = "androidx.work:work-runtime:${Versions.RUNTIME_WORKER}"
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
-
     // ConstraintLayout
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.1.4"
 
