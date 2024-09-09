@@ -29,6 +29,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "FORECAST_BASE_URL", "\"https://dev-orcas.s3.eu-west-1.amazonaws.com/uploads/\"")
+            buildConfigField("String", "CITIES_BASE_URL", "\"https://dev-orcas.s3.eu-west-1.amazonaws.com/uploads/\"")
+
+        }
+        debug {
+            buildConfigField("String", "FORECAST_BASE_URL", "\"https://api.openweathermap.org/data/2.5/\"")
+            buildConfigField("String", "CITIES_BASE_URL", "\"https://dev-orcas.s3.eu-west-1.amazonaws.com/uploads/\"")
         }
     }
     compileOptions {
@@ -41,6 +48,7 @@ android {
 
     buildFeatures {
         dataBinding = true
+        buildConfig = true
     }
 }
 
@@ -64,4 +72,6 @@ dependencies {
     navigationDependencies()
 
     retrofitDependencies()
+    // for testing purposes to show api responses
+    chuckerDependencies()
 }
