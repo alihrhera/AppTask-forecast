@@ -18,35 +18,27 @@ class CitiesRepository
     private val citiesResponse = MutableStateFlow<BaseResponse<CitiesResponse>>(BaseResponse.None)
     suspend fun getCities() {
         citiesResponse.value = BaseResponse.Loading(true)
-
         buildTask { api.getCities() }.collectLatest { response ->
             when (response) {
                 is BaseResponse.Body -> {
                     citiesDao.saveCitiesList(response.data.cities)
-                    citiesResponse.value = BaseResponse.Body(
-                        CitiesResponse(
-                            response.data.cities,
-                            null
-                        )
-                    )
+                    citiesResponse.value = response
                 }
                 is BaseResponse.Error -> {
                     val localCities = citiesDao.getAllCities()
-                    citiesResponse.value = BaseResponse.Body(
-                        CitiesResponse(
-                            localCities,
-                            if (localCities.isEmpty()) response.errorBody.errorMessage
-                            else "This is local data"
+                    if (localCities.isNotEmpty()) {
+                        citiesResponse.value = BaseResponse.Body(
+                            CitiesResponse(
+                                localCities,
+                                "This is local data"
+                            )
                         )
-                    )
+                    } else citiesResponse.value = response
                 }
-
                 else -> {
                     citiesResponse.value = response
                 }
             }
         }
     }
-
-
 }
