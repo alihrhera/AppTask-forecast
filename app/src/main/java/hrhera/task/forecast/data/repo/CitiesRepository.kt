@@ -16,24 +16,36 @@ class CitiesRepository
 
 
     private val citiesResponse = MutableStateFlow<BaseResponse<CitiesResponse>>(BaseResponse.None)
+    /**
+     * Get cities from remote server, if server is not available,
+     * get cities from local database. If local database is empty,
+     * show error message.
+     */
     suspend fun getCities() {
         citiesResponse.value = BaseResponse.Loading(true)
         buildTask { api.getCities() }.collectLatest { response ->
             when (response) {
                 is BaseResponse.Body -> {
+                    // Save cities to local database
                     citiesDao.saveCitiesList(response.data.cities)
+                    // Show cities from remote server
                     citiesResponse.value = response
                 }
                 is BaseResponse.Error -> {
+                    // Get cities from local database
                     val localCities = citiesDao.getAllCities()
                     if (localCities.isNotEmpty()) {
+                        // Show cities from local database
                         citiesResponse.value = BaseResponse.Body(
                             CitiesResponse(
                                 localCities,
                                 "This is local data"
                             )
                         )
-                    } else citiesResponse.value = response
+                    } else {
+                        // Show error message
+                        citiesResponse.value = response
+                    }
                 }
                 else -> {
                     citiesResponse.value = response
