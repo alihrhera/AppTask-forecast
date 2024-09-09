@@ -15,7 +15,7 @@ class CitiesRepository
 ) : BaseRepository() {
 
 
-    private val citiesResponse = MutableStateFlow<BaseResponse<CitiesResponse>>(BaseResponse.None)
+     val citiesResponse = MutableStateFlow<BaseResponse<CitiesResponse>>(BaseResponse.None)
     /**
      * Get cities from remote server, if server is not available,
      * get cities from local database. If local database is empty,

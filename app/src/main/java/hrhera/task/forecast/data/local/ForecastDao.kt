@@ -7,6 +7,7 @@ import androidx.room.Query
 import hrhera.task.forecast.domain.cities.City
 import hrhera.task.forecast.domain.wether.Forecast
 import hrhera.task.forecast.domain.wether.ForecastDTO
+import hrhera.task.forecast.utils.getUnixTimeOfStartOfDay
 import java.util.Calendar
 
 @Dao
@@ -15,10 +16,16 @@ interface ForecastDao {
     suspend fun saveForecasts(forecasts: List<ForecastDTO>)
 
 
+    /**
+     * Returns a list of forecasts for the given location and time.
+     * @param lat The latitude of the location
+     * @param lon The longitude of the location
+     * @param time The time in Unix timestamp format. If not provided, it defaults to the current day's midnight.
+     */
     @Query("SELECT * FROM forecasts where latitude = :lat and longitude = :lon and dt >=:time ")
     suspend fun getForecastsByLocation(
         lat: Double,
         lon: Double,
-        time: Long = Calendar.getInstance().timeInMillis / 1000
+        time: Long = getUnixTimeOfStartOfDay()
     ): List<ForecastDTO>
 }

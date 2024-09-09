@@ -18,11 +18,19 @@ class ForecastRepository
 ) : BaseRepository() {
 
 
-    private val forecastResponse = MutableStateFlow<BaseResponse<ForecastResponseData>>(
+     val forecastResponse = MutableStateFlow<BaseResponse<ForecastResponseData>>(
         BaseResponse
             .None
     )
 
+    /**
+     * Gets the forecast data from remote server, if remote server is not available,
+     * gets forecast data from local database. If local database is empty,
+     * shows error message.
+     *
+     * @param lon the longitude of the location
+     * @param lat the latitude of the location
+     */
     suspend fun getForecastData(lon: Double, lat: Double) {
         forecastResponse.value = BaseResponse.Loading(true)
 
