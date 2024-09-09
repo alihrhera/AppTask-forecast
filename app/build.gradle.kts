@@ -59,5 +59,7 @@ dependencies {
 
     hiltDependencies()
 
+    lifecycleDependencies()
+
 
 }
