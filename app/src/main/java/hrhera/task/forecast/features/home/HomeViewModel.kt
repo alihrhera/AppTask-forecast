@@ -1,6 +1,5 @@
 package hrhera.task.forecast.features.home
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,9 +49,7 @@ class HomeViewModel @Inject constructor(
     init {
         getCities()
         getCitiesUseCase.response.responseCollect(onError = {
-            errorMessageVisibility.postValue(it.isNotBlank())
-            errorMessage.postValue(it)
-
+            setError(it)
         }, onSuccess = { response ->
             cities.postValue(response.cities)
             localDataWarningVisibility.postValue(response.message.isNullOrBlank().not())
@@ -66,14 +63,13 @@ class HomeViewModel @Inject constructor(
     val cities = MutableLiveData<List<City>>(emptyList())
 
 
-
     /**
      * Sets the selected city and calls [getForecastData].
      * @param city the selected city
      */
     private var selectedCity: Pair<Double, Double>? = null
     fun setSelectCity(city: Pair<Double, Double>) {
-        selectedCity=city
+        selectedCity = city
         getForecastData()
     }
 
@@ -86,6 +82,8 @@ class HomeViewModel @Inject constructor(
     private fun getForecastData() = launchTask {
         selectedCity?.let {
             citiesErrorMessage.postValue(null)
+            localDataWarningVisibility.postValue(false)
+
             getForecastUseCase.getForecastData(
                 it.first, it.second
             )
@@ -116,11 +114,15 @@ class HomeViewModel @Inject constructor(
      */
     init {
         getForecastUseCase.response.responseCollect(onError = { errorMessageValue ->
-            errorMessage.postValue(errorMessageValue)
-            errorMessageVisibility.postValue(true)
+            setError(errorMessageValue)
         }, onSuccess = { response ->
             localDataWarningVisibility.postValue(response.messageTxt.isNullOrBlank().not())
         })
+    }
+
+    private fun setError(errorMessageValue: String) {
+        errorMessage.postValue(errorMessageValue)
+        errorMessageVisibility.postValue(errorMessageValue.isNotBlank())
     }
 
     val loadingForecast = getForecastUseCase.response.map { it is BaseResponse.Loading }.asLiveData()
