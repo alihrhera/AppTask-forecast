@@ -81,4 +81,14 @@ object Libs {
 
     }
 
+    object Testing {
+        const val CORE_TESTING="androidx.arch.core:core-testing:2.1.0"
+        const val MOCKK_ANDROID="io.mockk:mockk-android:1.13.12"
+        const val MOCKK_AGENT="io.mockk:mockk-agent:1.13.12"
+        const val MOCKK="io.mockk:mockk:1.13.12"
+        const val COROUTINES="org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+
+
+    }
+
 }

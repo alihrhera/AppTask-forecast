@@ -79,4 +79,7 @@ dependencies {
     retrofitDependencies()
     // for testing purposes to show api responses
     chuckerDependencies()
+
+
+    testingDependencies()
 }

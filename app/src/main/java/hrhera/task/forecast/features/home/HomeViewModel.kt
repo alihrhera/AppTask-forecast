@@ -30,15 +30,16 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getCitiesUseCase: GetCitiesUseCase, private val getForecastUseCase: GetForecastUseCase
+     val getCitiesUseCase: GetCitiesUseCase, private val getForecastUseCase: GetForecastUseCase
 ) : BaseViewModel() {
-    private fun getCities() = launchTask { getCitiesUseCase.getCities() }
 
 
     val errorMessage = MutableLiveData<String?>()
     val errorMessageVisibility = MutableLiveData<Boolean>()
 
 
+
+    fun getCities() = launchTask { getCitiesUseCase.getCities() }
     /**
      * Initializes the view model.
      * It calls [getCities] and sets up the response handling.
@@ -67,7 +68,7 @@ class HomeViewModel @Inject constructor(
      * Sets the selected city and calls [getForecastData].
      * @param city the selected city
      */
-    private var selectedCity: Pair<Double, Double>? = null
+     var selectedCity: Pair<Double, Double>? = null
     fun setSelectCity(city: Pair<Double, Double>) {
         selectedCity = city
         getForecastData()
@@ -79,7 +80,7 @@ class HomeViewModel @Inject constructor(
      * If the selected city is null, it shows the error message.
      * @see [getForecastUseCase.getForecastData]
      */
-    private fun getForecastData() = launchTask {
+     fun getForecastData() = launchTask {
         selectedCity?.let {
             citiesErrorMessage.postValue(null)
             localDataWarningVisibility.postValue(false)
@@ -95,7 +96,7 @@ class HomeViewModel @Inject constructor(
     /**
      * Shows the error message when the user didn't select a city.
      */
-    private fun showMustSelectCityError() {
+    fun showMustSelectCityError() {
         citiesErrorMessage.postValue("Please select city")
     }
 
@@ -120,7 +121,7 @@ class HomeViewModel @Inject constructor(
         })
     }
 
-    private fun setError(errorMessageValue: String) {
+    fun setError(errorMessageValue: String) {
         errorMessage.postValue(errorMessageValue)
         errorMessageVisibility.postValue(errorMessageValue.isNotBlank())
     }

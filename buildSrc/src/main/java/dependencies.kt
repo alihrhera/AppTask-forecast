@@ -35,7 +35,16 @@ object Versions {
 
 
 }
+fun DependencyHandler.testingDependencies(){
 
+    add("androidTestImplementation", Libs.Testing.CORE_TESTING)
+    add("testImplementation", Libs.Testing.CORE_TESTING)
+    add("testImplementation", Libs.Testing.COROUTINES)
+    add("testImplementation", Libs.Testing.MOCKK)
+    add("testImplementation", Libs.Testing.MOCKK_ANDROID)
+    add("testImplementation", Libs.Testing.MOCKK_AGENT)
+
+}
 fun DependencyHandler.roomDependencies() {
     add("implementation", Libs.ROOM.RUNTIME)
     add("annotationProcessor", Libs.ROOM.ANNOTATION_PROCESSOR)
