@@ -12,207 +12,254 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/screen_background"
+        android:paddingHorizontal="8dp">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_day"
-            android:layout_width="wrap_content"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/info_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@{forecast.dayName}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textSize="32sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/date/day_of_week" />
-
-        <LinearLayout
-            android:id="@+id/lay_temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:orientation="horizontal"
-            android:gravity="center|bottom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_day">
-
-            <LinearLayout
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:elevation="1dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:text="@{forecast.dayName}"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="24sp"
+                tools:text="@tools:sample/date/day_of_week" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/min" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txt_low_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
-                    android:text="@{String.valueOf(forecast.main.getMainTemperature)}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="24sp"
-                    tools:text="27 C" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/max" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txt_high_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(forecast.main.getMaxTemperature)}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="48sp"
-                    tools:text="27 C" />
-            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
 
-
-
-        </LinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_weather_condition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@{forecast.getWeatherStatus}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lay_temperature"
-            tools:text="clear " />
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/lay_day_weather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_weather_condition">
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
+            android:elevation="1dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/info_container">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:paddingBottom="12dp">
 
-                <com.google.android.material.textview.MaterialTextView
+                <LinearLayout
+                    android:id="@+id/lay_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:text="@string/visibility"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="16sp" />
+                    android:layout_marginTop="32dp"
+                    android:gravity="center|bottom"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="6dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/min" />
+
+                        <hrhera.task.forecast.core.GradientTextView
+                            android:id="@+id/txt_low_temperature"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="12dp"
+                            android:text="@{String.valueOf(forecast.main.getMainTemperature)}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:endColor="@color/blue"
+                            app:startColor="@color/ornege"
+                            tools:text="27 C" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/max" />
+
+                        <hrhera.task.forecast.core.GradientTextView
+                            android:id="@+id/txt_high_temperature"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{String.valueOf(forecast.main.getMaxTemperature)}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="48sp"
+                            android:textStyle="bold"
+                            app:endColor="@color/blue2"
+                            app:startColor="@color/blue"
+                            tools:text="27 C" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txt_value_visibility"
+                    android:id="@+id/txt_weather_condition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@{String.valueOf(forecast.visibility)}"
+                    android:layout_marginTop="12dp"
+                    android:text="@{forecast.getWeatherStatus}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lay_temperature"
+                    tools:text="clear " />
 
-            <View
-
-                android:layout_width="1dp"
-                android:layout_height="32dp"
-                android:background="@color/text_hint" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:text="@string/feels_like"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="16sp" />
+                    android:layout_marginTop="32dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_weather_condition">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txt_value_feelslike"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@{String.valueOf(forecast.main.feels_like)}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-            <View
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:text="@string/visibility"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="16sp" />
 
-                android:layout_width="1dp"
-                android:layout_height="32dp"
-                android:background="@color/text_hint" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txt_value_visibility"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="@{String.valueOf(forecast.visibility)}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+                    <View
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:text="@string/humidity"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="16sp" />
+                        android:layout_width="1dp"
+                        android:layout_height="32dp"
+                        android:background="@color/text_hint" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txt_value_humidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@{String.valueOf(forecast.main.humidity)}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:text="@string/feels_like"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="16sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txt_value_feelslike"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="@{String.valueOf(forecast.main.feels_like)}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <View
+
+                        android:layout_width="1dp"
+                        android:layout_height="32dp"
+                        android:background="@color/text_hint" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:text="@string/humidity"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="16sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txt_value_humidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="@{String.valueOf(forecast.main.humidity)}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
 
-        </LinearLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/lay_day_weather"
-            android:id="@+id/horizontal_line"
-            android:background="@color/text_hint"
-            android:layout_marginHorizontal="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="4dp"/>
-        <LinearLayout
-            android:id="@+id/lay_day_temps"
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/today_weather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/today_s_weather"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/lay_day_weather" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="8dp"
             android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/horizontal_line"
-            app:layout_goneMarginTop="16dp" />
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/grid_pattern"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today_weather">
+
+            <LinearLayout
+                android:id="@+id/lay_day_temps"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginTop="16dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

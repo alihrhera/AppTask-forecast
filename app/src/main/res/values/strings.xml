@@ -8,4 +8,5 @@
     <string name="humidity">Humidity</string>
     <string name="warning_locale_data">warning locale data</string>
     <string name="retry">Retry</string>
+    <string name="today_s_weather">Today\'s weather</string>
 </resources>
