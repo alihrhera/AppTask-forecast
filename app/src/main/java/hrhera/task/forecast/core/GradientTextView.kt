@@ -8,14 +8,30 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import hrhera.task.forecast.R
 
+/**
+ * A custom TextView that can display a gradient effect.
+ *
+ * @author Hrhera
+ */
 class GradientTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
+    /**
+     * The color of the gradient's start point.
+     */
     private var startColor: Int = 0
+
+    /**
+     * The color of the gradient's end point.
+     */
     private var endColor: Int = 0
+
+    /**
+     * Whether the gradient should be applied to the text.
+     */
     private var setGradient = false
 
     init {
@@ -42,6 +58,9 @@ class GradientTextView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Apply the gradient effect to the text.
+     */
     private fun applyGradient() {
         if (!setGradient) return
         val paint = paint
@@ -56,6 +75,11 @@ class GradientTextView @JvmOverloads constructor(
         paint.shader = shader
     }
 
+    /**
+     * Called when the view gains or loses focus.
+     *
+     * @param hasWindowFocus whether the view has focus
+     */
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
         super.onWindowFocusChanged(hasWindowFocus)
         if (hasWindowFocus) {
@@ -63,6 +87,14 @@ class GradientTextView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Called when the view's size changes.
+     *
+     * @param w the new width of the view
+     * @param h the new height of the view
+     * @param oldw the old width of the view
+     * @param oldh the old height of the view
+     */
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         applyGradient()
