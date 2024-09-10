@@ -1,8 +1,7 @@
-package hrhera.task.forecast.domain.wether
+package hrhera.task.forecast.domain.weather
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "forecasts")
 data class ForecastDTO(
@@ -10,18 +9,18 @@ data class ForecastDTO(
     @PrimaryKey val dt: Long,
     val text: String,
     val main: Main,
-    val pop: Int,
+    val pop: Double,
     val sys: Sys,
-    val visibility: Int,
+    val visibility: Double,
     val weather: List<Weather>,
     val wind: Wind,
     val coord: Coord,
     val country: String,
     val id: Int,
     val name: String,
-    val population: Int,
-    val sunrise: Int,
-    val sunset: Int,
+    val population: Long,
+    val sunrise: Long,
+    val sunset: Long,
     val timezone: Int,
     val latitude: Double,
     val longitude: Double,

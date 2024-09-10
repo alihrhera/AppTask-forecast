@@ -87,7 +87,15 @@ object Libs {
         const val MOCKK_AGENT="io.mockk:mockk-agent:1.13.12"
         const val MOCKK="io.mockk:mockk:1.13.12"
         const val COROUTINES="org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    }
 
+    object UiTest {
+        const val RUNNER="androidx.test:runner:1.6.1"
+        const val CORE="androidx.test:core:1.6.1"
+        const val CORE_KTS="androidx.test:core-ktx:1.6.1"
+        const val EXT_KTS="androidx.test.ext:junit-ktx:1.2.1"
+        const val EXT="androidx.test.ext:junit:1.2.1"
+        const val ESPRESSO="androidx.test.espresso:espresso-core:3.5.0"
 
     }
 

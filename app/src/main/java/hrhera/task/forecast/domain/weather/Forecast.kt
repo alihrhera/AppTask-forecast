@@ -1,6 +1,5 @@
-package hrhera.task.forecast.domain.wether
+package hrhera.task.forecast.domain.weather
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
@@ -10,9 +9,9 @@ data class Forecast(
     @SerializedName("dt_txt")
     val text: String,
     val main: Main,
-    val pop: Int,
+    val pop: Double,
     val sys: Sys,
-    val visibility: Int,
+    val visibility: Double,
     val weather: List<Weather>,
     val wind: Wind
 )

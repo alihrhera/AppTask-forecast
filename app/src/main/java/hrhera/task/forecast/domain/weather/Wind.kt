@@ -1,4 +1,4 @@
-package hrhera.task.forecast.domain.wether
+package hrhera.task.forecast.domain.weather
 
 data class Wind(
     val deg: Int,

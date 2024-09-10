@@ -3,12 +3,12 @@ package hrhera.task.forecast.data.local
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import hrhera.task.forecast.domain.wether.Clouds
-import hrhera.task.forecast.domain.wether.Coord
-import hrhera.task.forecast.domain.wether.Main
-import hrhera.task.forecast.domain.wether.Sys
-import hrhera.task.forecast.domain.wether.Weather
-import hrhera.task.forecast.domain.wether.Wind
+import hrhera.task.forecast.domain.weather.Clouds
+import hrhera.task.forecast.domain.weather.Coord
+import hrhera.task.forecast.domain.weather.Main
+import hrhera.task.forecast.domain.weather.Sys
+import hrhera.task.forecast.domain.weather.Weather
+import hrhera.task.forecast.domain.weather.Wind
 
 class ObjectsMapper {
 

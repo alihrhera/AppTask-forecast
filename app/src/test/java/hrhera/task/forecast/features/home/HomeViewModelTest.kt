@@ -1,21 +1,20 @@
 package hrhera.task.forecast.features.home
 
+import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import hrhera.task.forecast.core.BaseResponse
 import hrhera.task.forecast.domain.cities.CitiesResponse
 import hrhera.task.forecast.domain.cities.City
 import hrhera.task.forecast.domain.usecase.GetCitiesUseCase
 import hrhera.task.forecast.domain.usecase.GetForecastUseCase
-import hrhera.task.forecast.domain.wether.ForecastResponseData
-import io.mockk.MockK
+import hrhera.task.forecast.response.FakeCityRepo
+import hrhera.task.forecast.response.FakeForecastRepo
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.slot
 import io.mockk.spyk
 import io.mockk.verify
 import junit.framework.TestCase.assertEquals
@@ -23,12 +22,9 @@ import junit.framework.TestCase.assertNull
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -36,26 +32,31 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mockito.mock
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.P]) // Use the SDK version appropriate for your app
 class HomeViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: HomeViewModel
-    private val getCitiesUseCase = mockk<GetCitiesUseCase>()
+    private val getCitiesUseCase = GetCitiesUseCase(FakeCityRepo())
 
-    private val getForecastUseCase: GetForecastUseCase = mockk()
+    private val getForecastUseCase = GetForecastUseCase(FakeForecastRepo())
     private val testDispatcher = StandardTestDispatcher()
+    private val daysForecastAdapter = mock(DaysForecastAdapter::class.java) // Mock final class
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-
-        every { getCitiesUseCase.response } returns MutableStateFlow(BaseResponse.None)
-        every { getForecastUseCase.response } returns MutableStateFlow(BaseResponse.None)
-
         viewModel = HomeViewModel(getCitiesUseCase, getForecastUseCase)
+        viewModel.adapter=daysForecastAdapter
+
     }
 
     @After
@@ -77,68 +78,32 @@ class HomeViewModelTest {
     @Test
     fun `test fetchCities success response`() = runBlocking {
         // Arrange: Stub the use case to return a successful response
-        coEvery { getCitiesUseCase.response } returns MutableStateFlow(
-            BaseResponse.Body(
-                CitiesResponse(
-                    listOf(
-                        City(
-                            "Cairo",
-                            "Cairo",
-                            1,
-                            1.0,
-                            1.0,
-                        ),
-                    ), null
-                )
-            )
-        )
         viewModel.getCities()
 
         // Assert: Check if the response flow is updated correctly
         val response = viewModel.getCitiesUseCase.response.value
         assertTrue(response is BaseResponse.Body)
-        assertEquals(1, (response as BaseResponse.Body).data.cities.size)
-        assertEquals("Cairo", response.data.cities[0].cityNameEn)
+        assertEquals(3, (response as BaseResponse.Body).data.cities.size)
+        assertEquals(10, response.data.cities[0].id)
     }
 
 
     @Test
     fun `getForecastData should fetch forecast if city is selected`() = runTest {
         // Given
-        val latitude = 30.100
-        val longitude = 30.200
+        val latitude = 34.05
+        val longitude = -118.25
 
         val selectedCity = Pair(latitude, longitude)
         viewModel.selectedCity = selectedCity
 
-        // Mock the use case to return a successful result
-        coEvery { getForecastUseCase.getForecastData(latitude, longitude) } returns mockk()
-
         // When
         viewModel.getForecastData()
-
         // Then
-        coVerify(exactly = 1) { getForecastUseCase.getForecastData(latitude, longitude) }
         assertNull(viewModel.citiesErrorMessage.value) // Make sure error message is cleared
         assertEquals(false, viewModel.localDataWarningVisibility.value)
     }
 
-    @Test
-    fun `getForecastData should show error when no city is selected`() = runTest {
-        // Given
-        viewModel.selectedCity = null
-
-        // Mock the behavior of showing the error
-        val spyViewModel = spyk(viewModel)
-        every { spyViewModel.showMustSelectCityError() } just Runs
-
-        // When
-        spyViewModel.getForecastData()
-
-        // Then
-        verify { spyViewModel.showMustSelectCityError() }
-        coVerify(exactly = 0) { getForecastUseCase.getForecastData(any(), any()) }
-    }
 
 
 

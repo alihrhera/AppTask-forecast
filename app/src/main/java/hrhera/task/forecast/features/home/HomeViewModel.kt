@@ -2,14 +2,19 @@ package hrhera.task.forecast.features.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hrhera.task.forecast.core.BaseResponse
 import hrhera.task.forecast.core.BaseViewModel
 import hrhera.task.forecast.domain.cities.City
 import hrhera.task.forecast.domain.usecase.GetCitiesUseCase
 import hrhera.task.forecast.domain.usecase.GetForecastUseCase
+import hrhera.task.forecast.domain.weather.ForecastResponseData
+import hrhera.task.forecast.utils.groupForecastsByDate
 import hrhera.task.forecast.utils.launchTask
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -30,7 +35,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-     val getCitiesUseCase: GetCitiesUseCase, private val getForecastUseCase: GetForecastUseCase
+    val getCitiesUseCase: GetCitiesUseCase, private val getForecastUseCase: GetForecastUseCase
 ) : BaseViewModel() {
 
 
@@ -38,8 +43,8 @@ class HomeViewModel @Inject constructor(
     val errorMessageVisibility = MutableLiveData<Boolean>()
 
 
-
     fun getCities() = launchTask { getCitiesUseCase.getCities() }
+
     /**
      * Initializes the view model.
      * It calls [getCities] and sets up the response handling.
@@ -68,7 +73,7 @@ class HomeViewModel @Inject constructor(
      * Sets the selected city and calls [getForecastData].
      * @param city the selected city
      */
-     var selectedCity: Pair<Double, Double>? = null
+    var selectedCity: Pair<Double, Double>? = null
     fun setSelectCity(city: Pair<Double, Double>) {
         selectedCity = city
         getForecastData()
@@ -80,7 +85,7 @@ class HomeViewModel @Inject constructor(
      * If the selected city is null, it shows the error message.
      * @see [getForecastUseCase.getForecastData]
      */
-     fun getForecastData() = launchTask {
+    fun getForecastData() = launchTask {
         selectedCity?.let {
             citiesErrorMessage.postValue(null)
             localDataWarningVisibility.postValue(false)
@@ -108,6 +113,7 @@ class HomeViewModel @Inject constructor(
         getForecastData()
     }
 
+    var adapter = DaysForecastAdapter()
 
     /**
      * Collects the response from [getForecastUseCase] and updates the error message and visibility.
@@ -118,7 +124,14 @@ class HomeViewModel @Inject constructor(
             setError(errorMessageValue)
         }, onSuccess = { response ->
             localDataWarningVisibility.postValue(response.messageTxt.isNullOrBlank().not())
+            submitData(response)
         })
+    }
+
+    private fun submitData(response: ForecastResponseData) {
+        viewModelScope.launch(Dispatchers.Main) {
+            adapter.submitList(response.forecasts.groupForecastsByDate())
+        }
     }
 
     fun setError(errorMessageValue: String) {
@@ -127,5 +140,6 @@ class HomeViewModel @Inject constructor(
     }
 
     val loadingForecast = getForecastUseCase.response.map { it is BaseResponse.Loading }.asLiveData()
+
 
 }

@@ -40,7 +40,7 @@ android {
         all {
             buildConfigField("String", "FORECAST_BASE_URL", "\"https://api.openweathermap.org/data/2.5/\"")
             buildConfigField("String", "CITIES_BASE_URL", "\"https://dev-orcas.s3.eu-west-1.amazonaws.com/uploads/\"")
-            buildConfigField("String", "API_KEY",  properties["API_KEY"] as String)
+            buildConfigField("String", "API_KEY", properties["API_KEY"] as String)
         }
     }
     compileOptions {
@@ -77,9 +77,12 @@ dependencies {
     navigationDependencies()
 
     retrofitDependencies()
+
     // for testing purposes to show api responses
     chuckerDependencies()
 
-
     testingDependencies()
+    testImplementation (libs.robolectric )
+    testImplementation (libs.mockito.inline)
+    uiTestingDependencies()
 }

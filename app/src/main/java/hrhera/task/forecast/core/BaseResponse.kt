@@ -11,7 +11,7 @@ sealed class BaseResponse<out T : Any> {
     data class Error(val throwable: Throwable, val errorBody: BaseErrorServerResponse) : BaseResponse<Nothing>()
 
     @Keep
-    data class Loading(val loading: Boolean) : BaseResponse<Nothing>()
+    data object Loading : BaseResponse<Nothing>()
 
     @Keep
     data object None : BaseResponse<Nothing>()

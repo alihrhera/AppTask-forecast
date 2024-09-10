@@ -20,7 +20,7 @@ abstract class BaseRepository() {
     }
         .flowOn(defaultDispatcher)
         .onStart {
-            emit(BaseResponse.Loading(loading = true))
+            emit(BaseResponse.Loading)
         }
         .catch { throwable ->
             emit(BaseResponse.Error(throwable = throwable, errorBody = getErrorBody(throwable)))

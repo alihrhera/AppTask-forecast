@@ -44,7 +44,21 @@ fun DependencyHandler.testingDependencies(){
     add("testImplementation", Libs.Testing.MOCKK_ANDROID)
     add("testImplementation", Libs.Testing.MOCKK_AGENT)
 
+
 }
+
+fun DependencyHandler.uiTestingDependencies(){
+    add("androidTestImplementation", Libs.UiTest.CORE)
+    add("androidTestImplementation", Libs.UiTest.CORE_KTS)
+    add("androidTestImplementation", Libs.UiTest.RUNNER)
+    add("androidTestImplementation", Libs.UiTest.EXT){
+        exclude(group = "androidx.test.ext", module = "junit")
+    }
+    add("androidTestImplementation", Libs.UiTest.EXT_KTS)
+    add("androidTestImplementation", Libs.UiTest.ESPRESSO)
+
+}
+
 fun DependencyHandler.roomDependencies() {
     add("implementation", Libs.ROOM.RUNTIME)
     add("annotationProcessor", Libs.ROOM.ANNOTATION_PROCESSOR)

@@ -1,4 +1,4 @@
-package hrhera.task.forecast.domain.wether
+package hrhera.task.forecast.domain.weather
 
 data class Main(
     val feels_like: Double,
@@ -10,4 +10,8 @@ data class Main(
     val temp_kf: Double,
     val temp_max: Double,
     val temp_min: Double
-)
+) {
+    val getMaxTemperature get() = "${temp_max}°C"
+
+    val getMainTemperature get() = "${temp_min}°C"
+}

@@ -4,11 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import hrhera.task.forecast.domain.cities.City
-import hrhera.task.forecast.domain.wether.Forecast
-import hrhera.task.forecast.domain.wether.ForecastDTO
+import hrhera.task.forecast.domain.weather.ForecastDTO
 import hrhera.task.forecast.utils.getUnixTimeOfStartOfDay
-import java.util.Calendar
 
 @Dao
 interface ForecastDao {
@@ -28,4 +25,8 @@ interface ForecastDao {
         lon: Double,
         time: Long = getUnixTimeOfStartOfDay()
     ): List<ForecastDTO>
+
+
+    @Query("SELECT * FROM forecasts ")
+    suspend fun getForecasts(): List<ForecastDTO>
 }

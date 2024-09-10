@@ -1,7 +1,5 @@
-package hrhera.task.forecast.domain.wether
+package hrhera.task.forecast.domain.weather
 
-import androidx.room.Entity
-import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 
 data class ForecastResponseData(

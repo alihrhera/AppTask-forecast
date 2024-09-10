@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">AppTask-Forecast</string>
     <string name="hint_city">Select city</string>
+    <string name="min">min</string>
+    <string name="max">Max</string>
+    <string name="visibility">Visibility</string>
+    <string name="feels_like">Feels Like</string>
+    <string name="humidity">Humidity</string>
+    <string name="warning_locale_data">warning locale data</string>
+    <string name="retry">Retry</string>
 </resources>

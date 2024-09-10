@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import hrhera.task.forecast.domain.cities.City
-import hrhera.task.forecast.domain.wether.ForecastDTO
+import hrhera.task.forecast.domain.weather.ForecastDTO
 
 /**
  * Class that provides access to the database for storing the forecast data.
